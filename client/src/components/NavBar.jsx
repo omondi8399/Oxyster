@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-
+import { useStateContext } from '../context'
 import  CustomButton  from './CustomButton'
 import { logo, menu, search, thirdweb } from '../assets'
 import { navlinks } from '../constants'
@@ -10,7 +10,7 @@ const NavBar = () => {
     const [isActive, setIsActive] = useState('dashboard');
     const [toggleDrawer, setToggleDrawer] = useState(false);
 
-    const address = '0x6d19a24D93379D1bA58d28884fFBBEf1bc145387'
+    const { connect, address } = useStateContext()
 
     return (
     <div className='flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6'>
@@ -25,7 +25,7 @@ const NavBar = () => {
         <div className='sm:flex hidden flex-row justify-end gap-4'>
             <CustomButton btnType="button" title={address ? 'Create a campaign' : 'Connect'}
             styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'} handleClick={() => {
-                address ? navigate('create-campaign') : 'connect()'
+                address ? navigate('create-campaign') : connect()
             }} 
             />
             <Link to="/profile">
@@ -39,7 +39,7 @@ const NavBar = () => {
 
         <div className='sm:hidden flex justify-between items-center relative'>
         <div className='w-[40px] h-[40px] rounded-[10px] bg-[#2c2f32] flex justify-center items-center cursor-pointer'>
-                    <img src={thirdweb} alt="user" className='w-[60%] h-[60%] object-contain' />
+                    <img src={logo} alt="user" className='w-[60%] h-[60%] object-contain' />
                 </div>
 
                 <img src={menu} alt='menu' className='w-[34px] h-[34px] object-contain cursor-pointer' onClick={() =>
@@ -73,7 +73,7 @@ const NavBar = () => {
                     <div className='flex mx-4'>
                         <CustomButton btnType="button" title={address ? 'Create a campaign' : 'Connect'}
                         styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'} handleClick={() => {
-                            address ? navigate('create-campaign') : 'connect()'
+                            address ? navigate('create-campaign') : connect()
                         }} 
                         />
                     </div>
